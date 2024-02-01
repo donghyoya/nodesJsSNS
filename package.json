@@ -1,0 +1,11 @@
+{
+  "name": "nodebird",
+  "version": "0.0.1",
+  "description": "익스프스로 만드 sns 서비",
+  "main": "app",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "backjui",
+  "license": "MIT"
+}
