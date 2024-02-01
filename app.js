@@ -51,8 +51,18 @@ app.use(session({
 }));
 
 app.use('/', pageRouter);
+
+//404 미들웨어
 app.use((req, res, next) => {
     const error = new Error(`${req.method} ${req.url} 라우터가 없습니다`);
     error.status = 404;
     next(error);
+});
+
+//에러 처리 미들웨어
+app.use((err, req, res, enxt) => {
+    res.locals.message = err.message;
+    res.locals.error = process.env.NODE_ENV !== 'production' ? err : {}; // 배포모드가 아니면 에러모드 표시한
+    res.status(err.status || 500);
+    res.render('error'); // views 안에 error.html
 })
