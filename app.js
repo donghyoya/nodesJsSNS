@@ -65,4 +65,8 @@ app.use((err, req, res, enxt) => {
     res.locals.error = process.env.NODE_ENV !== 'production' ? err : {}; // 배포모드가 아니면 에러모드 표시한
     res.status(err.status || 500);
     res.render('error'); // views 안에 error.html
-})
+});
+
+app.listen(app.get('port'), () => {
+    console.log(app.get('port'), '번 포트에서 대기중');
+});
