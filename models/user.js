@@ -55,7 +55,20 @@ class User extends Sequelize.Model {
             })
         }
         // 관계 관련해서 여기서 한다
-    static associations(db) {}
+    static associations(db) {
+        db.User.hasMany(db.Post);
+        //User가 User 팔로잉 
+        db.User.belongsToMany(db.User, { //팔로워
+            foreignkKey: 'follingId',
+            as: 'Followers',
+            through: 'Follow',
+        })
+        db.User.belongsToMany(db.User, { //팔로잉
+            foreignkKey: 'followerId',
+            as: 'Followings',
+            through: 'Follow',
+        })
+    }
 }
 
 module.exports = User;
