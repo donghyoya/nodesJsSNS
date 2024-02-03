@@ -16,6 +16,31 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 
 //sequelize 연결 이때 db라는 객체로 묶었다
 db.sequelize = sequelize;
+
+const basename = path.basename(__filename); //index.js 제외 
+fs.readdirSync(__dirname)
+    .filter(file => {
+        //숨김 파일과 indexjs 파일 제외 그리고 마지막 확장명이 js파일인것만 
+        return file.indexOf('.') !== 0 && file != basename && file.slice('.js');
+    })
+    .forEach((file) => {
+        // models 파일 안에 모든 모델들
+        const model = require(path.join(__dirname, file));
+        console.log(file, model.name);
+        db[model.name] = model;
+        //initiate 먼저 다하고 associate 해야한다 
+        model.initiate(sequelize);
+    });
+
+Object.keys(db).forEach(modelName => {
+    //코드 출력하면서 테스트 해보자
+    console.log(db, modelName);
+    if (db[modelName].associate) {
+        db[modelName].associate(db);
+    }
+})
+
+/* 위에서 자동화 되어있다
 db.User = User;
 db.Post = Post;
 db.HashTag = HashTag;
@@ -28,6 +53,7 @@ HashTag.initiate(sequelize);
 User.associate(db);
 Post.associate(db);
 HashTag.associate(db);
+*/
 
 module.exports = db;
 
