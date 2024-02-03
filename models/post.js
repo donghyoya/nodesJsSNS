@@ -25,7 +25,10 @@ class Post extends Sequelize.Model {
         })
     }
 
-    static associations(db) {}
+    static associations(db) {
+        db.Post.belongsTo(db.User);
+        db.POst.belongsToMany(db.Hashtag, { through: 'PostHashtag' });
+    }
 }
 
 module.exports = Post;

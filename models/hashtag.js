@@ -10,7 +10,9 @@ class HashTag extends Sequelize.Model {
         })
     }
 
-    static associations(db) {}
+    static associations(db) {
+        db.HashTag.belongsToMany(db.Post, { through: 'PostHashtag' });
+    }
 }
 
 module.exports = HashTag;
