@@ -19,7 +19,9 @@ dontenv.config();
 
 const pageRouter = require('./routes/page');
 const exp = require('constants');
+
 const passportConfig = require('./passport');
+const passport = require('passport');
 
 const app = express();
 passportConfig();
@@ -52,6 +54,7 @@ app.use(express.json());
 //form 요청 가능
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
+
 app.use(session({
     resave: false,
     saveUninitialized: false,
@@ -63,6 +66,11 @@ app.use(session({
         secure: false,
     }
 }));
+
+//passport에도 미들웨어가 있다
+//반드시 express session 밑에다가 추가해야한다 
+app.use(passport.intialize());
+app.use(passport.session());
 
 app.use('/', pageRouter);
 
