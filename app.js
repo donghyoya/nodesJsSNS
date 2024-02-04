@@ -3,11 +3,14 @@ const cookieParser = require('cookie-parser');
 //요청과 응답 로그값 출력 라이브러리
 const morgan = require('morgan');
 const path = require('path');
-const axios = require('axios');
-const redis = require('redis');
+// const axios = require('axios');
+// const redis = require('redis');
 const session = require('express-session');
 const nunjucks = require('nunjucks');
 const dontenv = require('dotenv');
+
+// index 안에 있는 sequelize 객체를 지칭한다
+const { sequilize } = require('./models');
 
 
 // .env 에 작성한 설정값들이
@@ -25,7 +28,16 @@ app.set('view engine', 'html');
 nunjucks.configure('views', {
     express: app,
     watch: true,
-})
+});
+
+//sync 함수를 호출해야 연결이 된것이다 
+sequilize.sync() //{force: true} 집어넣으면 테이블을 제거했다가 다시 생성한다
+    .then(() => {
+        console.log('데이터베이스 연결 성공');
+    })
+    .catch((err) => {
+        console.error(err);
+    })
 
 // 개발할때만 로그를 출력하게한다
 app.use(morgan('dev'));

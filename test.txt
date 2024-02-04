@@ -1,0 +1,13 @@
+public
+-> 정적 리소스 저장하는곳
+-> 예: html, css, img, video 등
+
+passport
+-> 로그인 라이브러
+
+views
+-> nun juction
+-> 서비스 화면
+
+routs
+-> router 들 모
