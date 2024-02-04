@@ -19,8 +19,10 @@ dontenv.config();
 
 const pageRouter = require('./routes/page');
 const exp = require('constants');
+const passportConfig = require('./passport');
 
 const app = express();
+passportConfig();
 app.set('port', process.env.PORT || 8001);
 app.set('view engine', 'html');
 
