@@ -51,7 +51,7 @@ class User extends Sequelize.Model {
                 tableName: 'users',
                 paranoid: true, // deletedAt 유저 삭제일 -> 삭제일이 있을때 삭제된 데이터 즉, soft delete이ek 
                 charset: 'utf8mb4', //이모티콘 까지 저장하겠다하면 utf8mb4 로 두자 
-                collate: 'utf8_general_ci',
+                collate: 'utf8mb4_general_ci',
             })
         }
         // 관계 관련해서 여기서 한다

@@ -10,7 +10,7 @@ const nunjucks = require('nunjucks');
 const dontenv = require('dotenv');
 
 // index 안에 있는 sequelize 객체를 지칭한다
-const { sequilize } = require('./models');
+const { sequelize } = require('./models');
 
 
 // .env 에 작성한 설정값들이
@@ -31,7 +31,7 @@ nunjucks.configure('views', {
 });
 
 //sync 함수를 호출해야 연결이 된것이다 
-sequilize.sync() //{force: true} 집어넣으면 테이블을 제거했다가 다시 생성한다
+sequelize.sync({ force: false }) //{force: true} 집어넣으면 테이블을 제거했다가 다시 생성한다 (즉 개발시에만 하자) 
     .then(() => {
         console.log('데이터베이스 연결 성공');
     })
