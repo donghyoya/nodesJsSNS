@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
+const passport = require('passport');
 
 // 프론트에서 요청이오면  (join.html 에서 emain, nick, password)
 exports.join = async(req, res, next) => {
@@ -19,7 +20,7 @@ exports.join = async(req, res, next) => {
             nick,
             password: hash,
         });
-        return res.redirect('/');
+        return res.redirect('/'); //return 302 즉 성공 
 
     } catch (error) {
         console.error(error);
@@ -28,7 +29,8 @@ exports.join = async(req, res, next) => {
 }
 
 exports.login = () => {
-
+    //passport index에 값 송신 
+    passport.authenticate('local', (authEror, user, info) => {});
 }
 
 exports.logout = () => {

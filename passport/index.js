@@ -4,6 +4,8 @@ const kakao = require('./kakaoStrategy');
 
 const User = require('../models/user');
 
+
+
 module.exports = () => {
     passport.serializeUser((user, done) => {
         done(null, user.id);
@@ -14,4 +16,7 @@ module.exports = () => {
             .then((user) => done(null, user))
             .catch(err => done(err));
     });
-}
+
+    //localStrategy 호출 
+    local();
+};

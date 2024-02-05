@@ -51,8 +51,10 @@ app.use(morgan('dev'));
 // 현제 위치 app.js 의 __dirname(파일이름)인 public 을 지칭한다
 app.use(express.static(path.join(__dirname, 'public')));
 //json으로도 요청 가능
+// req.body를 ajax json 요청으로부터 
 app.use(express.json());
 //form 요청 가능
+// form 을 req.body로 변화 시켜준
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
@@ -72,7 +74,7 @@ app.use(session({
 //반드시 express session 밑에다가 추가해야한다 
 // req.user, req.login, reqisAuthenticate, req.logout 여기서 생성된다
 // 즉 passport는 로그인을 위한 함수를 자동으로 생성해주는 역할이다 
-app.use(passport.intialize());
+app.use(passport.initialize());
 app.use(passport.session()); //connect.sid 라는 이름으로 세션 쿠키가 브라우저로 전송 
 
 //라우트 연결 
