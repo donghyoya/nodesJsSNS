@@ -30,7 +30,13 @@ exports.join = async(req, res, next) => {
 
 exports.login = () => {
     //passport index에 값 송신 
-    passport.authenticate('local', (authEror, user, info) => {});
+    // localStrategy 에서 리턴된 done값이 여기(authError, user, info)로 들어간다
+    passport.authenticate('local', (authEror, user, info) => {
+        if (authEror) {
+            console.error(authEror);
+            return next(authEror);
+        }
+    });
 }
 
 exports.logout = () => {
