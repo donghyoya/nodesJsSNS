@@ -69,8 +69,10 @@ app.use(session({
 
 //passport에도 미들웨어가 있다
 //반드시 express session 밑에다가 추가해야한다 
+// req.user, req.login, reqisAuthenticate, req.logout 여기서 생성된다
+// 즉 passport는 로그인을 위한 함수를 자동으로 생성해주는 역할이다 
 app.use(passport.intialize());
-app.use(passport.session());
+app.use(passport.session()); //connect.sid 라는 이름으로 세션 쿠키가 브라우저로 전송 
 
 app.use('/', pageRouter);
 
