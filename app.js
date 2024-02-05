@@ -18,6 +18,7 @@ const { sequelize } = require('./models');
 dontenv.config();
 
 const pageRouter = require('./routes/page');
+const authRouter = require('./routes/auth');
 const exp = require('constants');
 
 const passportConfig = require('./passport');
@@ -74,7 +75,9 @@ app.use(session({
 app.use(passport.intialize());
 app.use(passport.session()); //connect.sid 라는 이름으로 세션 쿠키가 브라우저로 전송 
 
+//라우트 연결 
 app.use('/', pageRouter);
+app.use('/auth', authRouter);
 
 //404 미들웨어
 app.use((req, res, next) => {
