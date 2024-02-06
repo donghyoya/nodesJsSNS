@@ -7,7 +7,7 @@ const User = require('../models/user');
 
 
 module.exports = () => {
-    passport.serializeUser((user, done) => {
+    passport.serializeUser((user, done) => { // user == exUser(controller 안에있는 객체)
         done(null, user.id);
     });
 
