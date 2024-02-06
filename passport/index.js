@@ -13,6 +13,8 @@ module.exports = () => {
 
     passport.deserializeUser((id, done) => {
         User.findOne({ where: { id } })
+            // req.user, req.session 이 같이 생성된다 
+            //(정확히는 connect.sid 쿠키로 세션에서 찾을때 req.session이 생성 )
             .then((user) => done(null, user))
             .catch(err => done(err));
     });

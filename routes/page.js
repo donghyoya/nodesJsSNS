@@ -10,6 +10,7 @@ router.use((req, res, next) => {
     res.locals.followerCount = 0;
     res.locals.followingCount = 0;
     res.locals.followingList = [];
+    // req.session.data = '123';
     next(); // 집어넣어야 미들웨어 동작한다
 });
 
