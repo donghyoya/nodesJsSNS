@@ -69,7 +69,7 @@ exports.login = () => {
     });
 }
 
-exports.logout = (req, res, next) => {
+exports.logout = (req, res, next) => { // 세션쿠키의 키와 해당 키의 값을 없에버린다 
     req.logout(() => {
         res.redirect('/');
     })
