@@ -21,4 +21,6 @@ module.exports = () => {
 
     //localStrategy 호출 
     local();
+    //카카오 앱키가 안돼어서 일단 비활성화 
+    // kakao();
 };

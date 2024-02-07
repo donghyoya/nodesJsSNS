@@ -12,7 +12,7 @@ const config = require('../config/config')[env];
 
 const db = {};
 // 연결한게 아니다 연결이라는 것을 만들기만 한것이다
-const sequelize = new Sequelize(config.database, config.username, config.password, config, );
+const sequelize = new Sequelize(config.database, config.username, config.password, config);
 
 
 //sequelize 연결 이때 db라는 객체로 묶었다

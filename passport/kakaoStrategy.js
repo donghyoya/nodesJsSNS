@@ -4,7 +4,7 @@ const { Strategy: KakaoStrategy } = require('passport-kakao');
 
 module.exports = () => {
     passport.use(new KakaoStrategy({
-        clientId: process.env.KAKAO_ID,
+        clientId: process.env.KAKAO_ID, //카카오에서 제공한 app key 이다 
         callbackURL: '/auth/kakao/callback',
     }, async(accessToken, refreshToken, profile, done) => {
         //카카오에서 profile 구조를 멋대로 변경하니 한번씩 확인해보자 
@@ -18,7 +18,7 @@ module.exports = () => {
             } else {
                 // 카카오 계정이 DB에 없으면 추가한다(즉 회원가)
                 const newUser = await User.create({
-                        email: profile._json ? .kakao_account ? .email, //요 구조가 자주 바뀐다 
+                        email: 'test', //요 구조가 자주 바뀐다 
                         nick: profile.displayName,
                         snsId: profile.id,
                         provider: 'kakao',

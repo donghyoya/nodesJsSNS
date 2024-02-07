@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
+const { app } = require('express');
 const passport = require('passport');
 /*
 1. /auth/login 라우터를 통해 로그인 요청이 들어옴 
@@ -47,30 +48,36 @@ exports.join = async(req, res, next) => {
 }
 
 exports.login = () => {
-    //passport index에 값 송신 
-    // localStrategy 에서 리턴된 done값이 여기(authError, user, info)로 들어간다
-    passport.authenticate('local', (authEror, user, info) => {
-        if (authEror) {
-            console.error(authEror);
-            return next(authEror);
-        }
-        if (!user) {
-            return res.redirect(`/?loginError=${info.message}`);
-        }
-        //로그인 성공 
-        return req.login(user, (loginError) => {
-            //혹시 모를 에러를 위해서
-            if (loginError) {
-                console.error(loginError);
-                return next(loginError);
+        //passport index에 값 송신 
+        // localStrategy 에서 리턴된 done값이 여기(authError, user, info)로 들어간다
+        // 자동으로 passport-local 라이브러리 호출되게끔 매핑이 되어있따 
+        passport.authenticate('local', (authEror, user, info) => {
+            if (authEror) {
+                console.error(authEror);
+                return next(authEror);
             }
-            return res.redirect('/');
-        })(req, res, next);
-    });
-}
+            if (!user) {
+                return res.redirect(`/?loginError=${info.message}`);
+            }
+            //로그인 성공 
+            return req.login(user, (loginError) => {
+                //혹시 모를 에러를 위해서
+                if (loginError) {
+                    console.error(loginError);
+                    return next(loginError);
+                }
+                return res.redirect('/');
+            })(req, res, next);
+        });
+    }
+    /*
+    passport-kakao는 라이브러리 개발한 사람 마음이기 때문에 다르ek
+    */
+    // app.use(passport.authenticate('kakao'));
+    // app.use((req, res, next) => passport.authenticate('kakao')(req, res, next));
 
 exports.logout = (req, res, next) => { // 세션쿠키의 키와 해당 키의 값을 없에버린다 
-    req.logout(() => {
+    req.logout(() => { // 브라우저의 connect.sid 가 남아있어도 세션에 삭제되어있기에 상관 x
         res.redirect('/');
     })
 }
