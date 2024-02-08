@@ -1,5 +1,5 @@
 exports.isLoggedIn = (req, res, next) => { //passport 통해서 로그인 했니 
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated()) { //isAuthenticated() 는 passport에서 extends 되어있다 
         next();
     } else {
         res.status(403).send('로그인 필요');

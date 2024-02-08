@@ -10,7 +10,7 @@ router.use((req, res, next) => {
     res.locals.followerCount = 0;
     res.locals.followingCount = 0;
     res.locals.followingList = [];
-    // req.session.data = '123';
+    // req.session.data = '123'; 사용자의 딸려있는 데이터를 확인 가능 
     next(); // 집어넣어야 미들웨어 동작한다
 });
 
