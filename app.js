@@ -51,6 +51,9 @@ app.use(morgan('dev'));
 //public 폴더를 static으로 만든다
 // 현제 위치 app.js 의 __dirname(파일이름)인 public 을 지칭한다
 app.use(express.static(path.join(__dirname, 'public')));
+
+//이미지 저장하는 저장소
+app.use('/img', express.static(path.join(__dirname, 'uploads')));
 //json으로도 요청 가능
 // req.body를 ajax json 요청으로부터 
 app.use(express.json());
