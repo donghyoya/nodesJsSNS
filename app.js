@@ -19,6 +19,7 @@ dontenv.config();
 
 const pageRouter = require('./routes/page');
 const authRouter = require('./routes/auth');
+const postRouter = require('./routes/post');
 const exp = require('constants');
 
 const passportConfig = require('./passport');
@@ -80,6 +81,7 @@ app.use(passport.session()); //connect.sid 라는 이름으로 세션 쿠키가 
 //라우트 연결 
 app.use('/', pageRouter);
 app.use('/auth', authRouter);
+app.use('/post', postRouter);
 
 //404 미들웨어
 app.use((req, res, next) => {
