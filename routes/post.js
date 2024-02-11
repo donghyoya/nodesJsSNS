@@ -3,7 +3,9 @@ const { afterBulkCreate } = require('../models/user');
 const router = express.Router();
 const fs = require('fs');
 const multer = require('multer');
-const path = require('paht');
+const path = require('path');
+
+const { afterUploadImage, uploadPost } = require('../controllers/post');
 
 try {
     fs.readFileSync('uploads');
@@ -32,6 +34,9 @@ const upload = multer({
 
 //main.html 에서 append('img') 안에 img와 같아야한다 
 router.post("/img", isLoggedIn, upload.single('image'), afterUploadImage);
-router.post('/', isLoggedIn, uploadPost);
+
+//upload랑 설정이 다르기에 객체슬 생성했다
+const upload2 = multer();
+router.post('/', isLoggedIn, upload.none(), uploadPost);
 
 module.exports = router;
