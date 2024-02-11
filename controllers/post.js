@@ -1,0 +1,7 @@
+exports.afterUploadImage = () => {
+
+}
+
+exports.uploadPost = () => {
+
+};
