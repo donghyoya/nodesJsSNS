@@ -25,7 +25,10 @@ exports.uploadPost = async(req, res, next) => {
                     where: { title: HashTag.slice(1).toLowerCase() }
                 });
             }));
-            const.log('result', result);
+            console.log('result', result);
+            //post와 hashtag를 연결(다대다 ㅇ녀결 )
+            await post.addHashtags(result.map(results => results[0]));
+            res.redirect('/');
         }
     } catch (error) {
         console.error(error);
