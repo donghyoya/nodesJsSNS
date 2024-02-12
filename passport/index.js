@@ -4,6 +4,10 @@ const kakao = require('./kakaoStrategy');
 
 const User = require('../models/user');
 
+/*
+passport는 인증하는 부분이다
+즉 로그인했을때, 회원가입할때 사용되는 부분이다
+*/
 
 
 module.exports = () => {
@@ -12,7 +16,32 @@ module.exports = () => {
     });
 
     passport.deserializeUser((id, done) => {
-        User.findOne({ where: { id } })
+        /*
+        자동적으로 로그인할때 해당 정보의 객체를 routes/page안에 
+        req.user 안에 집어넣어진다
+        res.locals.user = req.user;
+        res.locals.followerCount = req.user.Followers.length
+        res.locals.followingCount = req.user.Followings.length;
+        res.locals.followingList = req.user.Followings.map(f=>f.id);
+
+        근데 나는 page안데다가 
+        */
+        User.findOne({
+                where: { id },
+                include: [{ //팔로잉
+                        model: User,
+                        attributes: ['id', 'nick'],
+                        as: 'Followers',
+
+                    },
+                    { //팔로워
+                        model: User,
+                        attributes: ['id', 'nick'],
+                        as: 'Followings',
+
+                    },
+                ]
+            })
             // req.user, req.session 이 같이 생성된다 
             //(정확히는 connect.sid 쿠키로 세션에서 찾을때 req.session이 생성 )
             .then((user) => done(null, user))
