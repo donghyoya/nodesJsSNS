@@ -24,7 +24,8 @@ module.exports = () => {
         res.locals.followingCount = req.user.Followings.length;
         res.locals.followingList = req.user.Followings.map(f=>f.id);
 
-        근데 나는 page안데다가 
+        근데 해당 작업을 page안에다가 작업이 가능하다.
+        근데 반드시 로그인 작업후 할수있게금하자
         */
         User.findOne({
                 where: { id },
