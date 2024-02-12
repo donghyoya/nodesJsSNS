@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { renderJoin, renderMain, renderProfile } = require('../controllers/page');
+const { renderJoin, renderMain, renderProfile, renderHashtag } = require('../controllers/page');
 const { isLoggedIn, isNotLoggedIn } = require('../middlewares');
 
 //아래 라우터들에서 공통적으로 사용가능한 변수를 선언 
@@ -23,5 +23,7 @@ router.get('/profile', isLoggedIn, renderProfile);
 // 로그인이 안되어있으면 회원가입 페이지로
 router.get('/join', isNotLoggedIn, renderJoin);
 router.get('/', renderMain);
+
+router.get('/hashtag', renderHashtag); // hashtag?hashtag=고양이
 
 module.exports = router;
