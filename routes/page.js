@@ -8,9 +8,9 @@ router.use((req, res, next) => {
     // layout.html에 있
     res.locals.user = req.user;
     //아래처럼 ?. 은 옵셔널 체이닝 문법
-    res.locals.followerCount = req.user ? .Follower.length;
-    res.locals.followingCount = req.user ? .Followings.length;
-    res.locals.followingList = req.user ? .Followings.map(f => f.id);
+    res.locals.followerCount = req.user?.Follower.length;
+    res.locals.followingCount = req.user?.Followings.length;
+    res.locals.followingList = req.user?.Followings.map(f => f.id);
     // req.session.data = '123'; 사용자의 딸려있는 데이터를 확인 가능 
     next(); // 집어넣어야 미들웨어 동작한다
 });
@@ -24,6 +24,6 @@ router.get('/profile', isLoggedIn, renderProfile);
 router.get('/join', isNotLoggedIn, renderJoin);
 router.get('/', renderMain);
 
-router.get('/hashtag', renderHashtag); // hashtag?hashtag=고양이
+router.get('/hashtag',renderHashtag); // hashtag?hashtag=고양이
 
 module.exports = router;

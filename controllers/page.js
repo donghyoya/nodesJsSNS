@@ -46,7 +46,15 @@ exports.renderHashtag = async(req, res, next) => {
         });
         let posts = [];
         if (hashtag) {
-            const post = await hashtag.getPosts();
+            const post = await hashtag.getPosts({
+                include: [{
+                    model: User,
+                    attributes: ['id', 'nick'],
+                    order: [
+                        ['createdAt', 'DESC']
+                    ],
+                }]
+            });
         }
         //게시글을 찾아서 화면에 랜더링
         res.render('main', {
